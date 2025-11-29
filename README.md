@@ -23,10 +23,81 @@ __Algorithm__:
 4. Generate Carrier Signal: Define the carrier signal as a cosine wave. 
 5. Modulate Signal: Apply the AM formula to obtain the modulated signal. 
 6. Plot the Signals: Use Matplotlib to plot the message signal, carrier signal, and modulated signal.
+7.
+
+Program:
+```
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Parameters
+Am = 36.3       # Message amplitude
+Ac = 72.6       # Carrier amplitude
+fm = 450        # Message frequency
+fc = 900        # Carrier frequency
+fs = 20000      # Sampling frequency (must be high for smooth signal)
+
+t = np.arange(0, 0.01, 1/fs)   # Time vector
+
+# Message Signal
+message = Am * np.cos(2 * np.pi * fm * t)
+
+# Carrier Signal
+carrier = Ac * np.cos(2 * np.pi * fc * t)
+
+# Modulation Index
+m = Am / Ac
+
+# AM Modulated Signal
+am_signal = Ac * (1 + m * np.cos(2 * np.pi * fm * t)) * np.cos(2 * np.pi * fc * t)
+
+# Demodulation (Envelope Detector)
+demodulated = np.abs(am_signal)
+
+# Plotting
+plt.figure(figsize=(12,10))
+
+plt.subplot(4,1,1)
+plt.plot(t, message)
+plt.title("Message Signal")
+plt.xlabel("Time")
+plt.ylabel("Amplitude")
+
+plt.subplot(4,1,2)
+plt.plot(t, carrier)
+plt.title("Carrier Signal")
+plt.xlabel("Time")
+plt.ylabel("Amplitude")
+
+plt.subplot(4,1,3)
+plt.plot(t, am_signal)
+plt.title("AM Modulated Signal")
+plt.xlabel("Time")
+plt.ylabel("Amplitude")
+
+plt.subplot(4,1,4)
+plt.plot(t, demodulated)
+plt.title("Demodulated Signal (Envelope)")
+plt.xlabel("Time")
+plt.ylabel("Amplitude")
+
+plt.tight_layout()
+plt.show()
+```
+Tabular coloumn:
+
+<img width="633" height="716" alt="image" src="https://github.com/user-attachments/assets/d1250951-1e16-4b86-9036-b80978dc1a42" />
+
+Calculation:
+
+<img width="377" height="631" alt="image" src="https://github.com/user-attachments/assets/d9e944a0-1c9d-40d7-bb90-59a465650dc2" />
 
  __Output__:
+
+<img width="805" height="602" alt="image" src="https://github.com/user-attachments/assets/6b25dd36-a3d5-4892-9e28-9565a83f918e" />
 
 
  __Result__:
 
+<img width="339" height="659" alt="image" src="https://github.com/user-attachments/assets/75d9fe37-1288-419e-8448-94558cd21444" />
 
